@@ -2,6 +2,7 @@ const express = require('express'); // Ensure express is imported
 const dotenv = require('dotenv');
 const path = require('path');
 const connectDB = require('./config/connectDatabase');
+const cors = require('cors');
 
 // Initialize express app
 const app = express();
@@ -18,12 +19,12 @@ connectDB(); // Connect to the database
 
 // Middleware to parse JSON requests
 app.use(express.json());
-
+app.use(cors());
 app.use('/api/v1/', products);
 app.use('/api/v1/', orders);
 
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT} in ${process.env.NODE_ENV || 'development'}`);
 });
